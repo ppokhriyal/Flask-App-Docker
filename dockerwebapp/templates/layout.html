@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='floating-labels.css')}}">
+
+	{% if title %}
+    	<title>Docker Web : {{ title }}</title>
+    {% else %}
+    	<title>Docker Web</title>
+    {% endif %}
+
+</head>
+<body>
+	{% if current_user.is_authenticated %}
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 fixed-top">
+      		<a class="navbar-brand" href="#">Docker Web |</a>
+      		<div class="collapse navbar-collapse" id="navbarCollapse">
+        		<ul class="navbar-nav mr-auto">
+          			<li class="nav-item active">
+            			<a class="nav-link" href="{{ url_for('home')}}">Dashboard<span class="sr-only">(current)</span></a>
+          			</li>
+          			<li class="nav-item">
+            			<a class="nav-link" href="#">Containers</a>
+          			</li>
+          			<li class="nav-item">
+            			<a class="nav-link" href="#">Images</a>
+          			</li>
+          			<li class="nav-item">
+            			<a class="nav-link" href="#">Volumes</a>
+          			</li>
+          		</ul>
+          		<ul class="navbar-nav ml-auto">
+          			<li class="navbar-nav ml-auto">
+          				<a class="nav-link text-info" href="{{ url_for('changepassword')}}">Change Password</a>
+          			</li>
+          			<li class="nav-item">
+            			<a class="nav-link text-danger" href="{{ url_for('logout')}}">Logout</a>
+          			</li>
+        		</ul>
+      		</div>
+    	</nav>
+    {% endif %}	
+    <main role="main" class="container">
+    		<div class="container">
+                <div>
+                       {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                        {% for category,message in messages %}
+                                                <div class="alert alert-{{ category }} alert-dismissible col-lg-12">
+                                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                        {{ message }}
+                                                </div>
+                                        {% endfor %}
+                                {% endif %}
+                        {% endwith %}
+                </div>
+        </div>
+        	{% block content%}{% endblock %}
+        	<div class=" fixed-bottom text-center bg-light">
+    		<small class="text-muted ">
+      			&copy; 2019 <a href="https://www.docker.com">Docker.com</a>
+      			Powered by Flask
+    		</small>
+  		</div>
+    </main>
+
+ <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
