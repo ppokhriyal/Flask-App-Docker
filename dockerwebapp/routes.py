@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, abort, ses
 from dockerwebapp import app, db, bcrypt, login_manager
 from dockerwebapp.forms import LoginForm,ChangePasswordForm
 from dockerwebapp.models import User
-from dockerwebapp.dockerinfo import dockerinfo
+from dockerwebapp.dockerinfo import dockerinfo,cpu,ram
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -10,8 +10,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route('/home')
 @login_required
 def home():
-	version = dockerinfo.get('Version')
-	return render_template('home.html',title='Home',version=version)
+	return render_template('home.html',title='Home',dockerinfo=dockerinfo,cpu=cpu,ram=ram)
 
 #Docker Web App Login Page
 @app.route('/',methods=['GET','POST'])

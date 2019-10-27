@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
      <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='floating-labels.css')}}">
 
 	{% if title %}
     	<title>Docker Web : {{ title }}</title>
@@ -18,9 +17,9 @@
 <body>
 	{% if current_user.is_authenticated %}
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 fixed-top">
-      		<a class="navbar-brand" href="#">Docker Web |</a>
+      		<a class="navbar-brand" href="#">Docker Web Engine</a>
       		<div class="collapse navbar-collapse" id="navbarCollapse">
-        		<ul class="navbar-nav mr-auto">
+        		<ul class="navbar-nav ml-auto">
           			<li class="nav-item active">
             			<a class="nav-link" href="{{ url_for('home')}}">Dashboard<span class="sr-only">(current)</span></a>
           			</li>
@@ -45,30 +44,28 @@
       		</div>
     	</nav>
     {% endif %}	
-    <main role="main" class="container">
-    		<div class="container">
-                <div>
-                       {% with messages = get_flashed_messages(with_categories=true) %}
-                                {% if messages %}
-                                        {% for category,message in messages %}
-                                                <div class="alert alert-{{ category }} alert-dismissible col-lg-12">
-                                                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                                        {{ message }}
-                                                </div>
-                                        {% endfor %}
-                                {% endif %}
-                        {% endwith %}
+        <div>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category,message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible col-lg-12">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ message }}
                 </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
         </div>
-        	{% block content%}{% endblock %}
-        	<div class=" fixed-bottom text-center bg-light">
-    		<small class="text-muted ">
-      			&copy; 2019 <a href="https://www.docker.com">Docker.com</a>
-      			Powered by Flask
-    		</small>
-  		</div>
-    </main>
-
+        <div class="container pt-4 mt-5">
+          {% block content%}{% endblock %}
+        </div>  
+        <div class=" fixed-bottom text-center bg-dark">
+    		  <small class="text-muted text-white bg-dark ">
+      			&copy; 2019 <a href="#">Docker Web Engine ver. 1.0</a>
+      			 | Powered by Flask
+    		  </small>
+  		  </div>
+  
  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

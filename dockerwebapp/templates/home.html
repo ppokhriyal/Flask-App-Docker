@@ -1,4 +1,45 @@
 {% extends 'layout.html' %}
 {% block content %}
-	{{ version }}
+	<div class="card">
+  		<h6 class="card-header font-weight-bold text-primary">Docker Engine - Community</h6>
+  		<div class="row text-center">
+  			<div class="col-md-auto text-center">
+  				<div class="card-body">
+    				<h7 class="card-title font-weight-bold">Docker Version</h7>
+    				<p class="card-text">{{ dockerinfo.get('Version') }}</p>
+    			</div>	
+    		</div>
+    		<div class="col-md-auto text-center">
+  				<div class="card-body">
+    				<h7 class="card-title font-weight-bold">API Version</h7>
+    				<p class="card-text">{{ dockerinfo.get('ApiVersion') }}</p>
+    			</div>	
+    		</div>
+    		<div class="col-md-auto text-center">
+  				<div class="card-body">
+    				<h7 class="card-title font-weight-bold">OS</h7>
+    				<p class="card-text">{{ dockerinfo.get('Os') }} - {{ dockerinfo.get('Arch')}}</p>
+    			</div>	
+    		</div>
+    		<div class="col-md-auto text-center">
+  				<div class="card-body">
+    				<h7 class="card-title font-weight-bold">Kernel Version</h7>
+    				<p class="card-text">{{ dockerinfo.get('KernelVersion') }}</p>
+    			</div>	
+    		</div>
+    		<div class="col-md-auto text-center">
+  				<div class="card-body">
+    				<h7 class="card-title font-weight-bold">CPU Core</h7>
+    				<p class="card-text">{{ cpu.get('count') }}</p>
+    			</div>	
+    		</div>
+    		<div class="col-md-auto text-center">
+  				<div class="card-body">
+    				<h7 class="card-title font-weight-bold">RAM</h7>
+    				<p class="card-text">{{ ram }}</p>
+    			</div>	
+    		</div>		
+  		</div>
+	</div>
+	
 {% endblock content %}
