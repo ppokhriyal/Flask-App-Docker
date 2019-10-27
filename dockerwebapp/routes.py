@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, abort, ses
 from dockerwebapp import app, db, bcrypt, login_manager
 from dockerwebapp.forms import LoginForm,ChangePasswordForm
 from dockerwebapp.models import User
-from dockerwebapp.dockerinfo import dockerinfo,cpu,ram
+from dockerwebapp.dockerinfo import dockerinfo ,cpu,ram,container,images,volumes
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -10,7 +10,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route('/home')
 @login_required
 def home():
-	return render_template('home.html',title='Home',dockerinfo=dockerinfo,cpu=cpu,ram=ram)
+	return render_template('home.html',title='Home',dockerinfo=dockerinfo,cpu=cpu,ram=ram,container_count=len(container),
+		image_count=len(images),volume_count=len(volumes))
 
 #Docker Web App Login Page
 @app.route('/',methods=['GET','POST'])
@@ -39,6 +40,11 @@ def changepassword():
 		db.session.commit()
 		flash(f"Your DockerAdmin password has been changed",'success')
 	return render_template('change_password.html',form=form,title='Change Password')
+
+#Docker Containers
+@app.route('/containers',methods=['GET','POST'])
+def containers():
+	return render_template('containers.html',title='Containers',container=container,container_count=len(container))	
 
 #Logout
 @app.route('/logout')

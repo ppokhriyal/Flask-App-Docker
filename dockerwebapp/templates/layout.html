@@ -20,14 +20,14 @@
       		<a class="navbar-brand" href="#">Docker Web Engine</a>
       		<div class="collapse navbar-collapse" id="navbarCollapse">
         		<ul class="navbar-nav ml-auto">
-          			<li class="nav-item active">
+          			<li class="nav-item">
             			<a class="nav-link" href="{{ url_for('home')}}">Dashboard<span class="sr-only">(current)</span></a>
           			</li>
           			<li class="nav-item">
-            			<a class="nav-link" href="#">Containers</a>
+            			<a class="nav-link" href="#">Images</a>
           			</li>
           			<li class="nav-item">
-            			<a class="nav-link" href="#">Images</a>
+            			<a class="nav-link" href="{{ url_for('containers')}}">Containers</a>
           			</li>
           			<li class="nav-item">
             			<a class="nav-link" href="#">Volumes</a>
@@ -60,7 +60,7 @@
           {% block content%}{% endblock %}
         </div>  
         <div class=" fixed-bottom text-center bg-dark">
-    		  <small class="text-muted text-white bg-dark ">
+    		  <small class="text-white">
       			&copy; 2019 <a href="#">Docker Web Engine ver. 1.0</a>
       			 | Powered by Flask
     		  </small>

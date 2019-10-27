@@ -3,8 +3,11 @@ from cpuinfo import get_cpu_info
 from psutil import virtual_memory
 
 #Connect to Docker Socket
-client = docker.DockerClient(base_url='unix://var/run/docker.sock')
+client = docker.from_env()
 dockerinfo = client.version()
+container = client.containers()
+images = client.images()
+volumes = client.volumes()
 
 #Get CPU information
 cpu = get_cpu_info()

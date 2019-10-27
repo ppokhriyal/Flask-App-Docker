@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h5 class="border-bottom">Containers</h5>
+<!--Table Start-->
+<table class="table table-sm mt-4">
+	<thead class="thead-light">
+		<tr>
+			<th scope="col">
+        		<div class="custom-control custom-checkbox">
+          			<input type="checkbox" class="custom-control-input" id="tableDefaultCheck1">
+          			<label class="custom-control-label" for="tableDefaultCheck1"></label>
+        		</div>
+			</th>
+			<th scope="col">Names</th>
+			<th scope="col">Container Id</th>
+			<th scope="col">Image</th>
+			<th scope="col">Command</th>
+			<th scope="col">Created</th>
+			<th scope="col">Ports</th>
+			<th scope="col">Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for i in container %}
+		<tr>
+			<th scope="row">
+				<div class="custom-control custom-checkbox">
+          			<input type="checkbox" class="custom-control-input" id="tableDefaultCheck2">
+          			<label class="custom-control-label" for="tableDefaultCheck2"></label>
+        		</div>
+			</th>
+			<td>{{ i['Names'] }}</td>
+			<td>{{ i['Id'][:12] }}</td>
+			<td>{{ i['Image'] }}</td>
+			<td>{{ i['Command'] }}</td>
+			<td>{{ i['Created'] }}</td>
+			{% if  i['Ports'] | length < 1 %}
+				<td>-</td>
+			{% else %}
+				<td>{{ i['Ports'] }}</td>
+			{% endif %}	
+			<td>{{ i['Status'] }}</td>
+		</tr>
+		{% endfor %}	
+	</tbody>
+</table>
+<div class="border-top pt-3">
+	<button type="button" class="btn btn-primary btn-sm">
+  		Containers <span class="badge badge-light">{{container_count}}</span>
+  		<span class="sr-only">unread messages</span>
+	</button>
+	<button type="button" class="btn btn-primary btn-sm">Start</button>
+	<button type="button" class="btn btn-primary btn-sm">Stop</button>
+	<button type="button" class="btn btn-primary btn-sm">Remove</button>
+</div>
+
+{% endblock content %}
