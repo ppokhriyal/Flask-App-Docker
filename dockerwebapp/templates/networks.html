@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h5 class="border-bottom font-weight-bold">Images</h5>
+<h5 class="border-bottom font-weight-bold">Networks</h5>
 <!--Top Action Buttons-->
-<button type="button" class="btn btn-info btn-sm float-right m-1">Add Images</button>
+<button type="button" class="btn btn-info btn-sm float-right m-1">Add Network</button>
 <button type="button" class="btn btn-danger btn-sm float-right m-1">Remove</button>
 <button type="button" class="btn btn-secondary btn-sm">
-	Images <span class="badge badge-light">{{image_count}}</span>
+	Networks <span class="badge badge-light">{{network_count}}</span>
 	<span class="sr-only">unread messages</span>
 </button>
 <button type="button" class="btn btn-warning btn-sm"><span class="fas fa-refresh mb-1"></span> Refresh</button>
@@ -20,16 +20,19 @@
           			<label class="custom-control-label" for="tableDefaultCheck1"></label>
         		</div>
 			</th>
-			<th scope="col">Image Id</th>
-			<th scope="col">Repository</th>
-			<th scope="col">Created</th>
-			<th scope="col">Size</th>
+			<th scope="col">Name</th>
+			<th scope="col">Id</th>
+			<th scope="col">Scope</th>
+			<th scope="col">Driver</th>
+			<th scope="col">IPAM Driver</th>
+			<th scope="col">IPAM Subnet</th>
+			<th scope="col">IPAM Gateway</th>
 			<th scope="col">Details</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% set tablecount = namespace(c=2) %}
-		{% for i in docker_image %}	
+		{% for i in docker_network %}	
 		<tr>
 			<th scope="row">
 				<div class="custom-control custom-checkbox">
@@ -37,10 +40,21 @@
           			<label class="custom-control-label" for="tableDefaultCheck{{ tablecount.c }}"></label>
         		</div>
 			</th>
-			<td>{{ i['Id'][7:19] }}</td>
-			<td>{{ i['RepoTags'][0] }}</td>
-			<td>{{ i['Created'] }}</td>
-			<td>{{ i['Size'] }}</td>
+			<td>{{ i['Name'] }}</td>
+			<td>{{ i['Id'][:12] }}</td>
+			<td>{{ i['Scope'] }}</td>
+			<td>{{ i['Driver'] }}</td>
+			<td>{{ i['IPAM']['Driver'] }}</td>
+			{% if i['IPAM']['Config'] | length < 1 %}
+				<td>-</td>
+			{% else %}
+				<td>{{ i['IPAM']['Config'][0]['Subnet'] }}</td>
+			{% endif %}
+			{% if i['IPAM']['Config'] | length < 1 %}
+				<td>-</td>
+			{% else %}
+				<td>{{ i['IPAM']['Config'][0]['Gateway'] }}</td>
+			{% endif %}
 			<td><a href="#">View</a></td>
 		</tr>
 		{% set tablecount.c = tablecount.c + 1 %}

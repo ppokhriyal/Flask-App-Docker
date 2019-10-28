@@ -22,6 +22,7 @@ image_count = len(apiclient.images(all=True))
 docker_container = apiclient.containers(all=True)
 docker_image = apiclient.images(all=True)
 docker_volume = apiclient.volumes()
+docker_network = apiclient.networks()
 
 #High Level API
 volume_count = len(client.volumes.list())

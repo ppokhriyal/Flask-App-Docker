@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, abort, ses
 from dockerwebapp import app, db, bcrypt, login_manager
 from dockerwebapp.forms import LoginForm,ChangePasswordForm
 from dockerwebapp.models import User
-from dockerwebapp.dockerinfo import dockerinfo ,cpu,ram,container_count,image_count,volume_count,docker_container,docker_image,docker_volume
+from dockerwebapp.dockerinfo import dockerinfo ,cpu,ram,container_count,image_count,volume_count,docker_container,docker_image,docker_volume,docker_network
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -55,6 +55,11 @@ def images():
 @app.route('/volumes',methods=['GET','POST'])
 def volumes():
 	return render_template('volumes.html',title='Volumes',volume_count=volume_count,docker_volume=docker_volume)
+
+#Docker Networks
+@app.route('/networks',methods=['GET','POST'])
+def networks():
+	return render_template('networks.html',title='Networks',docker_network=docker_network,network_count=len(docker_network))
 
 #Logout
 @app.route('/logout')

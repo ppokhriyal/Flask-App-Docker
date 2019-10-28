@@ -28,26 +28,43 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% set tablecount = namespace(c=2) %}
-		{% for k,v in docker_volume.items() %}
-			{% if k == 'Volumes' %}		
+		{% if volume_count  > 1 %}
+			{% set tablecount = namespace(c=2) %}
+			{% for k,v in docker_volume.items() %}
+				{% if k == 'Volumes' %}		
+					<tr>
+						<th scope="row">
+							<div class="custom-control custom-checkbox">
+          						<input type="checkbox" class="custom-control-input" id="tableDefaultCheck{{ tablecount.c }}">
+          						<label class="custom-control-label" for="tableDefaultCheck{{ tablecount.c }}"></label>
+        					</div>
+						</th>
+						<td>{{ v[0]['Name'] }}</td>
+						<td>{{ v[0]['Driver'] }}</td>
+						<td>{{ v[0]['Mountpoint'] }}</td>
+						<td>{{ v[0]['Scope'] }}</td>
+						<td>{{ v[0]['CreatedAt'] }}</td>
+						<td><a href="#">View</a></td>
+					</tr>
+				{% endif %}
+				{% set tablecount.c = tablecount.c + 1 %}
+			{% endfor %}
+		{% else %}
 			<tr>
 				<th scope="row">
 					<div class="custom-control custom-checkbox">
-          				<input type="checkbox" class="custom-control-input" id="tableDefaultCheck{{ tablecount.c }}">
-          				<label class="custom-control-label" for="tableDefaultCheck{{ tablecount.c }}"></label>
-        			</div>
+          				<input type="checkbox" class="custom-control-input" id="tableDefaultCheck2">
+          					<label class="custom-control-label" for="tableDefaultCheck2"></label>
+        				</div>
 				</th>
-				<td>{{ v[0]['Name'] }}</td>
-				<td>{{ v[0]['Driver'] }}</td>
-				<td>{{ v[0]['Mountpoint'] }}</td>
-				<td>{{ v[0]['Scope'] }}</td>
-				<td>{{ v[0]['CreatedAt'] }}</td>
-				<td><a href="#">View</a></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
 			</tr>
-			{% endif %}
-			{% set tablecount.c = tablecount.c + 1 %}
-		{% endfor %}
+		{% endif %}	
 	</tbody>
 </table>
 <div class="border-top pt-3"></div>
