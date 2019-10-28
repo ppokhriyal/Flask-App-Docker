@@ -4,8 +4,14 @@
 	<!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-     <!-- Bootstrap CSS -->
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
 	{% if title %}
     	<title>Docker Web : {{ title }}</title>
@@ -24,14 +30,17 @@
             			<a class="nav-link" href="{{ url_for('home')}}">Dashboard<span class="sr-only">(current)</span></a>
           			</li>
           			<li class="nav-item">
-            			<a class="nav-link" href="#">Images</a>
+            			<a class="nav-link" href="{{ url_for('images') }}">Images</a>
           			</li>
           			<li class="nav-item">
             			<a class="nav-link" href="{{ url_for('containers')}}">Containers</a>
           			</li>
           			<li class="nav-item">
-            			<a class="nav-link" href="#">Volumes</a>
+            			<a class="nav-link" href="{{ url_for('volumes')}}">Volumes</a>
           			</li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Networks</a>
+                </li>
           		</ul>
           		<ul class="navbar-nav ml-auto">
           			<li class="navbar-nav ml-auto">

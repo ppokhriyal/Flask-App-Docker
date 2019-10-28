@@ -1,13 +1,11 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h5 class="border-bottom font-weight-bold">Containers</h5>
+<h5 class="border-bottom font-weight-bold">Images</h5>
 <!--Top Action Buttons-->
-<button type="button" class="btn btn-info btn-sm float-right m-1">Add Container</button>
+<button type="button" class="btn btn-info btn-sm float-right m-1">Add Images</button>
 <button type="button" class="btn btn-danger btn-sm float-right m-1">Remove</button>
-<button type="button" class="btn btn-primary btn-sm float-right m-1"><span class="fas fa-stop mb-1"></span> Stop</button>
-<button type="button" class="btn btn-primary btn-sm float-right m-1"><span class="fas fa-play mb-1"></span> Start</button>
 <button type="button" class="btn btn-secondary btn-sm">
-	Containers <span class="badge badge-light">{{container_count}}</span>
+	Images <span class="badge badge-light">{{image_count}}</span>
 	<span class="sr-only">unread messages</span>
 </button>
 <button type="button" class="btn btn-warning btn-sm"><span class="fas fa-refresh mb-1"></span> Refresh</button>
@@ -22,19 +20,16 @@
           			<label class="custom-control-label" for="tableDefaultCheck1"></label>
         		</div>
 			</th>
-			<th scope="col">Names</th>
-			<th scope="col">Container Id</th>
-			<th scope="col">Image</th>
-			<th scope="col">Command</th>
+			<th scope="col">Image Id</th>
+			<th scope="col">Repository</th>
 			<th scope="col">Created</th>
-			<th scope="col">Ports</th>
-			<th scope="col">Status</th>
+			<th scope="col">Size</th>
 			<th scope="col">Details</th>
 		</tr>
 	</thead>
 	<tbody>
 		{% set tablecount = namespace(c=2) %}
-		{% for i in docker_container %}	
+		{% for i in docker_image %}	
 		<tr>
 			<th scope="row">
 				<div class="custom-control custom-checkbox">
@@ -42,21 +37,10 @@
           			<label class="custom-control-label" for="tableDefaultCheck{{ tablecount.c }}"></label>
         		</div>
 			</th>
-			<td>{{ i['Names'][0].strip('/') }}</td>
-			<td>{{ i['Id'][:12] }}</td>
-			<td>{{ i['Image'] }}</td>
-			<td>{{ i['Command'] }}</td>
+			<td>{{ i['Id'][7:19] }}</td>
+			<td>{{ i['RepoTags'] }}</td>
 			<td>{{ i['Created'] }}</td>
-			{% if i['Ports'] | length < 1 %}
-				<td>-</td>
-			{% else %}
-				<td>{{ i['Ports'] }}</td>
-			{% endif %}
-			{% if  i['State'] | string() == "exited" %}			
-				<td><span class="badge badge-danger">Stopped</span></td>
-			{% else %}
-				<td><span class="badge badge-success">Running</span></td>
-			{% endif %}		
+			<td>{{ i['Size'] }}</td>
 			<td><a href="#">View</a></td>
 		</tr>
 		{% set tablecount.c = tablecount.c + 1 %}
@@ -64,5 +48,4 @@
 	</tbody>
 </table>
 <div class="border-top pt-3"></div>
-
 {% endblock content %}

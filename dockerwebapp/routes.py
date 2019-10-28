@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request, abort, ses
 from dockerwebapp import app, db, bcrypt, login_manager
 from dockerwebapp.forms import LoginForm,ChangePasswordForm
 from dockerwebapp.models import User
-from dockerwebapp.dockerinfo import dockerinfo ,cpu,ram,container,images,volumes
+from dockerwebapp.dockerinfo import dockerinfo ,cpu,ram,container_count,image_count,volume_count,docker_container,docker_image,docker_volume
 from flask_login import login_user, current_user, logout_user, login_required
 
 
@@ -10,8 +10,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route('/home')
 @login_required
 def home():
-	return render_template('home.html',title='Home',dockerinfo=dockerinfo,cpu=cpu,ram=ram,container_count=len(container),
-		image_count=len(images),volume_count=len(volumes))
+	return render_template('home.html',title='Home',dockerinfo=dockerinfo,cpu=cpu,ram=ram,container_count=container_count,
+		image_count=image_count,volume_count=volume_count)
 
 #Docker Web App Login Page
 @app.route('/',methods=['GET','POST'])
@@ -44,7 +44,17 @@ def changepassword():
 #Docker Containers
 @app.route('/containers',methods=['GET','POST'])
 def containers():
-	return render_template('containers.html',title='Containers',container=container,container_count=len(container))	
+	return render_template('containers.html',title='Containers',container_count=container_count,docker_container=docker_container)	
+
+#Docker Images
+@app.route('/images',methods=['GET','POST'])
+def images():
+	return render_template('images.html',title='Images',image_count=image_count,docker_image=docker_image)
+
+#Docker Volumes
+@app.route('/volumes',methods=['GET','POST'])
+def volumes():
+	return render_template('volumes.html',title='Volumes',volume_count=volume_count,docker_volume=docker_volume)
 
 #Logout
 @app.route('/logout')
