@@ -1,16 +1,17 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h5 class="border-bottom font-weight-bold">Containers</h5>
+<h5 class="font-weight-bold">Containers</h5>
+<div class="border-top pt-3"></div>
 <!--Top Action Buttons-->
 <button type="button" class="btn btn-info btn-sm float-right m-1">Add Container</button>
 <button type="button" class="btn btn-danger btn-sm float-right m-1">Remove</button>
 <button type="button" class="btn btn-primary btn-sm float-right m-1"><span class="fas fa-stop mb-1"></span> Stop</button>
 <button type="button" class="btn btn-primary btn-sm float-right m-1"><span class="fas fa-play mb-1"></span> Start</button>
-<button type="button" class="btn btn-secondary btn-sm">
+<button type="button" class="btn btn-secondary btn-sm m1-">
 	Containers <span class="badge badge-light">{{container_count}}</span>
 	<span class="sr-only">unread messages</span>
 </button>
-<button type="button" class="btn btn-warning btn-sm"><span class="fas fa-refresh mb-1"></span> Refresh</button>
+<a href="{{url_for('containers')}}"><button type="button" class="btn btn-warning btn-sm m-1"><span class="fas fa-refresh mb-1"></span> Refresh</button></a>
 
 <!--Table Start-->
 <table class="table table-sm mt-4">
@@ -33,36 +34,54 @@
 		</tr>
 	</thead>
 	<tbody>
-		{% set tablecount = namespace(c=2) %}
-		{% for i in docker_container %}	
-		<tr>
-			<th scope="row">
-				<div class="custom-control custom-checkbox">
-          			<input type="checkbox" class="custom-control-input" id="tableDefaultCheck{{ tablecount.c }}">
-          			<label class="custom-control-label" for="tableDefaultCheck{{ tablecount.c }}"></label>
-        		</div>
-			</th>
-			<td>{{ i['Names'][0].strip('/') }}</td>
-			<td>{{ i['Id'][:12] }}</td>
-			<td>{{ i['Image'] }}</td>
-			<td>{{ i['Command'] }}</td>
-			<td>{{ i['Created'] }}</td>
-			{% if i['Ports'] | length < 1 %}
+		{% if container_count > 0 %}
+			{% set tablecount = namespace(c=2) %}
+			{% for i in docker_container %}	
+				<tr>
+					<th scope="row">
+						<div class="custom-control custom-checkbox">
+          					<input type="checkbox" class="custom-control-input" id="tableDefaultCheck{{ tablecount.c }}">
+          					<label class="custom-control-label" for="tableDefaultCheck{{ tablecount.c }}"></label>
+        				</div>
+					</th>
+					<td>{{ i['Names'][0].strip('/') }}</td>
+					<td>{{ i['Id'][:12] }}</td>
+					<td>{{ i['Image'] }}</td>
+					<td>{{ i['Command'] }}</td>
+					<td>{{ i['Created'] }}</td>
+					{% if i['Ports'] | length < 1 %}
+						<td>-</td>
+					{% else %}
+						<td>{{ i['Ports'] }}</td>
+					{% endif %}
+					{% if  i['State'] | string() == "exited" %}			
+						<td><span class="badge badge-danger">Stopped</span></td>
+					{% else %}
+						<td><span class="badge badge-success">Running</span></td>
+					{% endif %}		
+					<td><a href="#">View</a></td>
+				</tr>
+				{% set tablecount.c = tablecount.c + 1 %}
+			{% endfor %}
+		{%else%}
+			<tr>
+				<th scope="row">
+					<div class="custom-control custom-checkbox">
+          				<input type="checkbox" class="custom-control-input" id="tableDefaultCheck2">
+          				<label class="custom-control-label" for="tableDefaultCheck2"></label>
+        			</div>
+				</th>
 				<td>-</td>
-			{% else %}
-				<td>{{ i['Ports'] }}</td>
-			{% endif %}
-			{% if  i['State'] | string() == "exited" %}			
-				<td><span class="badge badge-danger">Stopped</span></td>
-			{% else %}
-				<td><span class="badge badge-success">Running</span></td>
-			{% endif %}		
-			<td><a href="#">View</a></td>
-		</tr>
-		{% set tablecount.c = tablecount.c + 1 %}
-		{% endfor %}
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td>-</td>
+				<td><a href="#">View</a></td>
+			</tr>
+		{%endif%}	
 	</tbody>
 </table>
 <div class="border-top pt-3"></div>
-
 {% endblock content %}

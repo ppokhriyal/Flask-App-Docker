@@ -1,14 +1,15 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h5 class="border-bottom font-weight-bold">Networks</h5>
+<h5 class="font-weight-bold">Networks</h5>
+<div class="border-top pt-3"></div>
 <!--Top Action Buttons-->
 <button type="button" class="btn btn-info btn-sm float-right m-1">Add Network</button>
 <button type="button" class="btn btn-danger btn-sm float-right m-1">Remove</button>
-<button type="button" class="btn btn-secondary btn-sm">
+<button type="button" class="btn btn-secondary btn-sm m-1">
 	Networks <span class="badge badge-light">{{network_count}}</span>
 	<span class="sr-only">unread messages</span>
 </button>
-<button type="button" class="btn btn-warning btn-sm"><span class="fas fa-refresh mb-1"></span> Refresh</button>
+<a href="{{url_for('networks')}}"><button type="button" class="btn btn-warning btn-sm m-1"><span class="fas fa-refresh mb-1"></span> Refresh</button></a>
 
 <!--Table Start-->
 <table class="table table-sm mt-4">

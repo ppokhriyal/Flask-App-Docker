@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 {% block content %}
-	<h5 class="border-bottom font-weight-bold">Dashboard</h5>
-	<div class="card">
+	<h5 class="font-weight-bold">Dashboard</h5>
+  <div class="border-top pt-3"></div>
+	<div class="card mt-3">
   		<h6 class="card-header font-weight-bold text-primary">Docker Engine - Community</h6>
   		<div class="row text-center">
   			<div class="col-md-auto text-center">
@@ -42,36 +43,49 @@
     		</div>		
   		</div>
 	</div>
-	<div class="container bg-light pt-5 mt-4">
-	<div class="card-deck mb-3 text-center">
-    	<div class="card mb-4 box-shadow">
-        	<div class="card-header">
-            	<h5 class="my-0 font-weight-normal">Images</h5>
-          	</div>
-          	<div class="card-body">
-            	<h1 class="card-title pricing-card-title">{{ image_count }}</h1>
-            	<button type="button" class="btn btn-lg btn-block btn-primary">Refresh</button>
-          	</div>
-        </div>
+	<!--CARD DECK-->
+  <div class="container bg-light mt-5">
+    <div class="card-deck mb-3 text-center pt-3">
+
         <div class="card mb-4 box-shadow">
-        	<div class="card-header">
-            	<h5 class="my-0 font-weight-normal">Containers</h5>
-          	</div>
-          	<div class="card-body">
-            	<h1 class="card-title pricing-card-title">{{ container_count }}</h1>
-            		<button type="button" class="btn btn-lg btn-block btn-primary">Refresh</button>
-          	</div>
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Images</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{image_count}}</h1>
+            <a href="url_for('images')"><button type="button" class="btn btn-lg btn-block btn-primary">Refresh</button></a>
+          </div>
         </div>
+
         <div class="card mb-4 box-shadow">
-        	<div class="card-header">
-            	<h5 class="my-0 font-weight-normal">Volumes</h5>
-          	</div>
-          	<div class="card-body">
-            	<h1 class="card-title pricing-card-title">{{ volume_count }}</h1>
-            	<button type="button" class="btn btn-lg btn-block btn-primary">Refresh</button>
-          	</div>
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Containers</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{container_count}}</h1>
+            <a href="{{url_for('containers')}}"><button type="button" class="btn btn-lg btn-block btn-primary">Refresh</button></a>
+          </div>
+        </div>
+
+        <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Volumes</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{volume_count}}</h1>
+            <a href="{{url_for('volumes')}}"><button type="button" class="btn btn-lg btn-block btn-primary">Refresh</button></a>
+          </div>
+        </div>
+
+        <div class="card mb-4 box-shadow">
+          <div class="card-header">
+            <h4 class="my-0 font-weight-normal">Networks</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{network_count}}</h1>
+            <a href="{{url_for('networks')}}"><button type="button" class="btn btn-lg btn-block btn-primary">Refresh</button></a>
+          </div>
         </div>
     </div>
-	</div>
-
+  </div>   
 {% endblock content %}
