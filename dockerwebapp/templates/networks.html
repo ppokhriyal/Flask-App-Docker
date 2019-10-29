@@ -4,7 +4,7 @@
 <div class="border-top pt-3"></div>
 <!--Top Action Buttons-->
 <button type="button" class="btn btn-info btn-sm float-right m-1">Add Network</button>
-<button type="button" class="btn btn-danger btn-sm float-right m-1">Remove</button>
+<button type="button" class="btn btn-danger btn-sm float-right m-1">Remove All</button>
 <button type="button" class="btn btn-secondary btn-sm m-1">
 	Networks <span class="badge badge-light">{{network_count}}</span>
 	<span class="sr-only">unread messages</span>
@@ -15,12 +15,6 @@
 <table class="table table-sm mt-4">
 	<thead class="thead-light">
 		<tr>
-			<th scope="col">
-        		<div class="custom-control custom-checkbox">
-          			<input type="checkbox" class="custom-control-input" id="tableDefaultCheck1">
-          			<label class="custom-control-label" for="tableDefaultCheck1"></label>
-        		</div>
-			</th>
 			<th scope="col">Name</th>
 			<th scope="col">Id</th>
 			<th scope="col">Scope</th>
@@ -28,19 +22,13 @@
 			<th scope="col">IPAM Driver</th>
 			<th scope="col">IPAM Subnet</th>
 			<th scope="col">IPAM Gateway</th>
+			<th scope="col">Action</th>
 			<th scope="col">Details</th>
 		</tr>
 	</thead>
 	<tbody>
-		{% set tablecount = namespace(c=2) %}
 		{% for i in docker_network %}	
 		<tr>
-			<th scope="row">
-				<div class="custom-control custom-checkbox">
-          			<input type="checkbox" class="custom-control-input" id="tableDefaultCheck{{ tablecount.c }}">
-          			<label class="custom-control-label" for="tableDefaultCheck{{ tablecount.c }}"></label>
-        		</div>
-			</th>
 			<td>{{ i['Name'] }}</td>
 			<td>{{ i['Id'][:12] }}</td>
 			<td>{{ i['Scope'] }}</td>
@@ -56,9 +44,9 @@
 			{% else %}
 				<td>{{ i['IPAM']['Config'][0]['Gateway'] }}</td>
 			{% endif %}
+			<td><a href="#" class="badge badge-danger">Delete</a></td>
 			<td><a href="#">View</a></td>
 		</tr>
-		{% set tablecount.c = tablecount.c + 1 %}
 		{% endfor %}
 	</tbody>
 </table>
